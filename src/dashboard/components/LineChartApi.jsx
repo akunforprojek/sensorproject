@@ -50,33 +50,33 @@ const LineChart = () => {
     };
 
     async function chartValue() {
-        try {
-            let ctx = document.getElementById('chartApi').getContext('2d');
-            chart = new ChartJS(ctx, {
-                type: 'line',
-                data: {
-                    labels: label,
-                    datasets: [
-                        {
-                            label: 'My First Dataset',
-                            data: daily,
-                            fill: false,
-                            borderColor: '#4D4D4D',
-                            tension: 0.5,
-                        },
-                    ],
-                },
-                option: {
-                    tooltip: {
-                        mode: 'index',
+        let ctx = document.getElementById('chartApi').getContext('2d');
+        chart = new ChartJS(ctx, {
+            type: 'line',
+            data: {
+                labels: label,
+                datasets: [
+                    {
+                        label: 'My First Dataset',
+                        data: daily,
+                        fill: false,
+                        borderColor: '#4D4D4D',
+                        tension: 0.5,
                     },
+                ],
+            },
+            option: {
+                tooltip: {
+                    mode: 'index',
                 },
-            })
-        } catch (e) {
-            if (chart) {
+            },
+        })
+        if (chart) {
+            if(chart.id <= 0){
                 chart.destroy();
             }
         }
+
     };
 
     useEffect(() => {

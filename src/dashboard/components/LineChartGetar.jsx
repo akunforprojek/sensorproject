@@ -51,58 +51,57 @@ const LineChartGetar = () => {
   };
 
   async function chartValue() {
-    try {
-      let ctx = document.getElementById('chartGetar').getContext('2d');
-      chart = new ChartJS(ctx, {
-        type: 'line',
-        data: {
-          labels: label,
-          datasets: [
-            {
-              label: 'My First Dataset',
-              data: daily,
-              fill: false,
-              borderColor: '#4D4D4D',
-              tension: 0.5,
-            },
-          ],
-        },
-        options: {
-          tooltip: {
-            mode: 'index',
+    let ctx = document.getElementById('chartGetar').getContext('2d');
+    chart = new ChartJS(ctx, {
+      type: 'line',
+      data: {
+        labels: label,
+        datasets: [
+          {
+            label: 'My First Dataset',
+            data: daily,
+            fill: false,
+            borderColor: '#4D4D4D',
+            tension: 0.5,
           },
+        ],
+      },
+      options: {
+        tooltip: {
+          mode: 'index',
         },
-      });
-    } catch (err) {
-      if (chart) {
+      },
+    });
+    if (chart) {
+      if(chart.id <= 1){
         chart.destroy();
       }
     }
   }
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+useEffect(() => {
+  window.addEventListener('resize', handleResize);
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []);
 
-  useEffect(() => {
-    handleLabels();
-    for (index; index < 7; index++) {
-      getDaily();
-    }
-  }, []);
+useEffect(() => {
+  handleLabels();
+  for (index; index < 7; index++) {
+    getDaily();
+  }
+}, []);
 
-  useEffect(() => {
-    chartValue();
-  }, [daily]);
+useEffect(() => {
+  chartValue();
+}, [daily]);
 
-  return (
-    <div style={{ margin: window.innerWidth < 768 ? '5vw' : '4vw' }}>
-      <p>Statistik Gempa</p>
-      <canvas id='chartGetar'></canvas>
-    </div>
-  );
+return (
+  <div style={{ margin: window.innerWidth < 768 ? '5vw' : '4vw' }}>
+    <p>Statistik Gempa</p>
+    <canvas id='chartGetar'></canvas>
+  </div>
+);
 };
 
 export default LineChartGetar;
