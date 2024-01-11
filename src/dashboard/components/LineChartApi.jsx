@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-chartjs-2';
 import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js';
-import { collection, getDocs } from 'firebase/firestore';
-import db from '../constant/firebase';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from '../constant/firebase2';
 
 ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale);
 
+const firebaseApp = initializeApp(firebaseConfig, 'app2');
+const db = getFirestore(firebaseApp);
 
 const LineChart = () => {
     let chart;
@@ -27,7 +30,7 @@ const LineChart = () => {
             querySnapshot.forEach((doc) => {
                 items.push(doc.data());
             });
-            items.map((item, idx) => filteredData[6 - idx] = (item.flame));
+            items.map((item, idx) => filteredData[6 - idx] = (item.avgApi2));
             setDaily(filteredData);
         } catch (error) {
             console.error('Error fetching data from Firestore:', error);
@@ -43,7 +46,7 @@ const LineChart = () => {
             labels.push(formattedDate);
         }
 
-        setLabel(labels);
+        setLabel(labels.reverse());
     };
     const handleResize = () => {
         setWindowWidth(window.innerWidth);
@@ -96,6 +99,16 @@ const LineChart = () => {
     useEffect(() => {
         chartValue();
     }, [daily]);
+
+    useEffect(() => {
+        setInterval(() => {
+            handleLabels();
+            for (index; index < 7; index++) {
+                getDaily();
+            }
+            chartValue();
+        }, 30000);
+    }, );
 
     return (
         <div style={{ margin: window.innerWidth < 768 ? '5vw' : '4vw' }}>
