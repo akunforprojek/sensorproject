@@ -1,15 +1,13 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
-
 const firebaseConfig = {
-  apiKey: "AIzaSyC2C-h1lq04SweCpeAEAlrHHG7erADcoHo",
-  authDomain: "arduino-project-192d4.firebaseapp.com",
-  projectId: "arduino-project-192d4",
-  storageBucket: "arduino-project-192d4.appspot.com",
-  messagingSenderId: "1074671646798",
-  appId: "1:1074671646798:web:346db40a53e015bc096b1f"
+  apiKey: "AIzaSyCwgv_XFk7Fzl9LX37pWYBoJUCf_WHr6Rc",
+  authDomain: "slbncicendonew.firebaseapp.com",
+  databaseURL: "https://slbncicendonew-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "slbncicendonew",
+  storageBucket: "slbncicendonew.appspot.com",
+  messagingSenderId: "289928100421",
+  appId: "1:289928100421:web:a94b577a64108b429b012c",
+  measurementId: "G-953B0TGMK7"
 };
 
-const app = initializeApp(firebaseConfig);
 
-export default getFirestore(app);
+export default firebaseConfig;
